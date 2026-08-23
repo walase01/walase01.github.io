@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Únete a la trivia — Santa Biblia</title>
+<style>
+  body {
+    margin: 0;
+    font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background: #F4ECD8;
+    color: #4B3621;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 24px;
+    box-sizing: border-box;
+  }
+  .card {
+    max-width: 380px;
+    width: 100%;
+    text-align: center;
+  }
+  .icon { font-size: 56px; margin-bottom: 8px; }
+  h1 { font-size: 20px; margin: 0 0 8px; }
+  p { font-size: 15px; line-height: 1.5; color: #7A6A52; margin: 0 0 20px; }
+  .code-box {
+    background: #EADFC3;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 24px;
+  }
+  .code-label { font-size: 12px; color: #7A6A52; margin-bottom: 4px; }
+  .code-value { font-size: 30px; font-weight: bold; color: #8B5E34; letter-spacing: 2px; }
+  .btn {
+    display: block;
+    background: #8B5E34;
+    color: #F4ECD8;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 15px;
+  }
+  .hint { font-size: 13px; color: #7A6A52; margin-top: 20px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon">📖</div>
+    <h1>Te invitaron a una trivia bíblica</h1>
+    <p>Para unirte necesitas tener instalada la app <strong>Santa Biblia</strong>. Descárgala y usa este código dentro de la app:</p>
+    <div class="code-box">
+      <div class="code-label">Código de la sesión</div>
+      <div class="code-value" id="code">------</div>
+    </div>
+    <a class="btn" id="storeLink" href="https://play.google.com/store/apps/details?id=com.walase.bibliaapp">Descargar en Play Store</a>
+    <p class="hint">Si ya tienes la app instalada, abre "Trivia" → 🎯 Unirse, y escribe el código de arriba.</p>
+  </div>
+
+  <script>
+    var params = new URLSearchParams(window.location.search);
+    var code = (params.get('code') || '').toUpperCase();
+    if (code) {
+      document.getElementById('code').textContent = code;
+    }
+
+    // Si la app SÍ está instalada pero el navegador cayó aquí de todos
+    // modos (ej. la primera vez que Android aún no verificó el dominio),
+    // intenta abrirla directo con el esquema clásico como respaldo.
+    if (code) {
+      window.location.href = 'bibliaapp://join/' + code;
+    }
+  </script>
+</body>
+</html>
